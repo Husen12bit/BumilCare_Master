@@ -1,24 +1,22 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\PatientHistoryController;
 use App\Http\Controllers\Api\ScreeningController;
-use App\Http\Controllers\Api\PatientController;
 use Illuminate\Support\Facades\Route;
 
-// Public routes
+// Public
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Protected routes (butuh token Sanctum)
+// Protected
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/screening', [ScreeningController::class, 'store']);
-    Route::get('/patient/history', [PatientHistoryController::class, 'index']);
-});
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::post('/register', [AuthController::class, 'register']);
-
-Route::middleware('auth:sanctum')->group(function () {
     Route::get('/patient/profile', [PatientController::class, 'show']);
     Route::put('/patient/profile', [PatientController::class, 'update']);
-    // ... route lain
+    Route::get('/patient/history', [PatientHistoryController::class, 'index']);
+
+    Route::post('/screening', [ScreeningController::class, 'store']);
 });

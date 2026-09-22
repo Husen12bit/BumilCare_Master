@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Patient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -21,14 +20,16 @@ class PatientController extends Controller
             'data' => [
                 'id' => $patient->id,
                 'nama' => $patient->user->name,
+                'email' => $patient->user->email,
                 'umur' => $patient->tanggal_lahir->age,
+                'tanggal_lahir' => $patient->tanggal_lahir->format('Y-m-d'),
                 'alamat' => $patient->alamat,
                 'jumlah_anak' => $patient->jumlah_anak,
                 'hpht' => $patient->hpht?->format('Y-m-d'),
                 'hpl' => $patient->hpl?->format('Y-m-d'),
-                'tinggi_badan' => $patient->tinggi_badan,
-                'berat_badan' => $patient->berat_badan,
-                'lila' => $patient->lila,
+                'tinggi_badan' => (float) $patient->tinggi_badan,
+                'berat_badan' => (float) $patient->berat_badan,
+                'lila' => (float) $patient->lila,
                 'usia_kehamilan_minggu' => $patient->usiaKehamilanMinggu(),
             ],
         ]);
@@ -51,13 +52,15 @@ class PatientController extends Controller
             return response()->json(['message' => 'Profil tidak ditemukan.'], 404);
         }
 
-        // Hitung HPL otomatis jika HPHT diisi
         if (!empty($validated['hpht'])) {
             $validated['hpl'] = \Carbon\Carbon::parse($validated['hpht'])->addDays(280)->format('Y-m-d');
         }
 
         $patient->update($validated);
 
-        return response()->json(['message' => 'Profil diperbarui.', 'data' => $patient->fresh()]);
+        return response()->json([
+            'message' => 'Profil berhasil diperbarui.',
+            'data' => $patient->fresh(),
+        ]);
     }
 }
