@@ -1,0 +1,25 @@
+{
+    "name": "BumilCare: Skrining Cepat & KIA Digital",
+    "short_name": "BumilCare",
+    "description": "Aplikasi skrining kesehatan ibu hamil - Inovasi Praktik Komunitas/Kebidanan",
+    "start_url": "/app",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#00897B",
+    "theme_color": "#00897B",
+    "lang": "id",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

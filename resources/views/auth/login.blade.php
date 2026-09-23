@@ -53,6 +53,10 @@
         <p class="text-center text-xs text-gray-400 mt-6">
             Hanya untuk tenaga kesehatan terdaftar.
         </p>
+
+        <div class="text-center mt-4">
+            <a href="/app/login" class="text-xs text-gray-400">Login sebagai pasien →</a>
+        </div>
     </div>
 
 </body>
